@@ -1,31 +1,37 @@
 import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [postId, setPostId] = useState('');
+  const [post, setPost] = useState(null);
 
-  const decrease = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-  };
+  const getPost = async () => {
+    if (!postId) return;
 
-  const increase = () => {
-    setCount(count + 1);
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+    const data = await response.json();
+    setPost(data);
   };
 
   return (
     <div>
-      <h1>Счётчик: {count}</h1>
+      <h1>Получение поста по ID</h1>
 
-      <button onClick={decrease}>-</button>
-      <button onClick={increase} style={{ marginLeft: '10px' }}>
-        +
+      <input
+        type="number"
+        placeholder="Введите ID поста"
+        value={postId}
+        onChange={(e) => setPostId(e.target.value)}
+      />
+
+      <button onClick={getPost} style={{ marginLeft: '10px' }}>
+        Получить пост
       </button>
 
-      {count === 0 && (
-        <p style={{ color: 'red' }}>
-          Пожалуйста, измените количество, оно не может быть равно 0
-        </p>
+      {post && post.id && (
+        <div style={{ marginTop: '20px' }}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </div>
       )}
     </div>
   );
