@@ -1,7 +1,19 @@
-function CartProductItem({ item }) {
+function CartProductItem({
+  item,
+  increaseQuantity,
+  decreaseQuantity,
+  removeFromCart,
+}) {
   return (
     <div className="product">
-      <div className="photo"></div>
+      <div
+        className="photo"
+        style={{
+          backgroundImage: `url(${item.image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      ></div>
 
       <div className="product-info">
         <div className="title">{item.name}</div>
@@ -14,9 +26,19 @@ function CartProductItem({ item }) {
             </div>
 
             <div className="quantity">
-              <div className="count-botton">-</div>
+              <div
+                className="count-botton"
+                onClick={() => decreaseQuantity(item.id)}
+              >
+                -
+              </div>
               <div className="count">{item.quantity}</div>
-              <div className="count-botton">+</div>
+              <div
+                className="count-botton"
+                onClick={() => increaseQuantity(item.id)}
+              >
+                +
+              </div>
             </div>
 
             <div className="total-price">
@@ -25,7 +47,9 @@ function CartProductItem({ item }) {
           </div>
         </div>
 
-        <div className="close">X</div>
+        <div className="close" onClick={() => removeFromCart(item.id)}>
+          X
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,16 @@
-function ProductCard({ product }) {
+function ProductCard({
+  product,
+  favorites,
+  toggleFavorite,
+  cart,
+  addToCart,
+  increaseQuantity,
+  decreaseQuantity,
+}) {
+  const isFavorite = favorites.includes(product.id);
+  const cartItem = cart.find((item) => item.id === product.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
+
   return (
     <div className="product">
       <div
@@ -15,8 +27,20 @@ function ProductCard({ product }) {
             {product.isNew && <div className="label new">New</div>}
           </div>
 
-          <div className="favorites">
-            <img src="/icons/heart.svg" alt="favorites" />
+          <div
+            className="favorites"
+            onClick={() => toggleFavorite(product.id)}
+            style={{ cursor: 'pointer' }}
+          >
+            <img
+              src="/icons/heart.svg"
+              alt="favorites"
+              style={{
+                filter: isFavorite
+                  ? 'invert(41%) sepia(76%) saturate(1360%) hue-rotate(314deg) brightness(101%) contrast(101%)'
+                  : 'none',
+              }}
+            />
           </div>
         </div>
       </div>
@@ -26,8 +50,39 @@ function ProductCard({ product }) {
 
         <div className="price">
           <div className="current-price">${product.price.toFixed(2)}</div>
-          {product.oldPrice && <div className="old-price">${product.oldPrice.toFixed(2)}</div>}
+          {product.oldPrice && (
+            <div className="old-price">${product.oldPrice.toFixed(2)}</div>
+          )}
         </div>
+
+        {quantity === 0 ? (
+          <button
+            onClick={() => addToCart(product.id)}
+            style={{
+              marginTop: '10px',
+              padding: '10px 16px',
+              border: 'none',
+              background: 'black',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            Buy
+          </button>
+        ) : (
+          <div
+            style={{
+              marginTop: '10px',
+              display: 'flex',
+              gap: '12px',
+              alignItems: 'center',
+            }}
+          >
+            <button onClick={() => decreaseQuantity(product.id)}>-</button>
+            <span>{quantity}</span>
+            <button onClick={() => increaseQuantity(product.id)}>+</button>
+          </div>
+        )}
       </div>
     </div>
   );

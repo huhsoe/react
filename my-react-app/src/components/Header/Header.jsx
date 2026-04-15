@@ -1,4 +1,4 @@
-function Header({ currentPage, setCurrentPage }) {
+function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
   return (
     <header className="header">
       <div className="left-side">
@@ -54,12 +54,12 @@ function Header({ currentPage, setCurrentPage }) {
 
         <div className="header-icon">
           <img src="/icons/heart.svg" alt="heart" />
-          <div className="counter">0</div>
+          <div className="counter">{favoriteCount}</div>
         </div>
 
         <div className="header-icon" onClick={() => setCurrentPage('cart')}>
           <img src="/icons/cart.svg" alt="cart" />
-          <div className="counter">0</div>
+          <div className="counter">{cartCount}</div>
         </div>
       </div>
     </header>
