@@ -1,39 +1,35 @@
 import { useState } from 'react';
+import Header from './components/Header/Header';
+import ContentBlock from './components/ContentBlock/ContentBlock';
+import Showcase from './components/Showcase/Showcase';
+import Cart from './components/Cart/Cart';
+import Footer from './components/Footer/Footer';
 
 function App() {
-  const [postId, setPostId] = useState('');
-  const [post, setPost] = useState(null);
+  const [currentPage, setCurrentPage] = useState('shop');
 
-  const getPost = async () => {
-    if (!postId) return;
-
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-    const data = await response.json();
-    setPost(data);
-  };
+  const pageTitle = currentPage === 'shop' ? 'Shop' : 'Cart';
+  const breadcrumbs =
+    currentPage === 'shop' ? ['Home', 'Shop'] : ['Home', 'Shop', 'Cart'];
 
   return (
-    <div>
-      <h1>Получение поста по ID</h1>
+    <>
+      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-      <input
-        type="number"
-        placeholder="Введите ID поста"
-        value={postId}
-        onChange={(e) => setPostId(e.target.value)}
-      />
+      <main className="main">
+        <ContentBlock
+          title={pageTitle}
+          breadcrumbs={breadcrumbs}
+          setCurrentPage={setCurrentPage}
+        />
 
-      <button onClick={getPost} style={{ marginLeft: '10px' }}>
-        Получить пост
-      </button>
-
-      {post && post.id && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
+        <div className="container">
+          {currentPage === 'shop' ? <Showcase /> : <Cart />}
         </div>
-      )}
-    </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }
 
