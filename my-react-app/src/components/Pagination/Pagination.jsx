@@ -1,8 +1,10 @@
+import { leftPaginationArrowIcon, rightPaginationArrowIcon } from '../../assets';
+
 function Pagination() {
   return (
     <div className="pagination">
       <div className="button-left">
-        <img src="/icons/left-pagin-arrow.svg" alt="left-arrow" />
+        <img src={leftPaginationArrowIcon} alt="left-arrow" />
       </div>
 
       <div className="pages">
@@ -11,7 +13,7 @@ function Pagination() {
         <div className="page">3</div>
       </div>
 
-      <img src="/icons/right-pagin-arrow.svg" className="button-right" alt="right-arrow" />
+      <img src={rightPaginationArrowIcon} className="button-right" alt="right-arrow" />
     </div>
   );
 }

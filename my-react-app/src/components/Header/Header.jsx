@@ -1,3 +1,14 @@
+import {
+  arrowIcon,
+  arrowPinkIcon,
+  cartIcon,
+  heartIcon,
+  logoIcon,
+  searchIcon,
+  userIcon,
+} from '../../assets';
+import { SHOP_PAGE, CART_PAGE } from '../../constants';
+
 function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
   return (
     <header className="header">
@@ -9,7 +20,7 @@ function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
           </div>
 
           <div className="logo">
-            <img src="/icons/logo.svg" alt="logo" />
+            <img src={logoIcon} alt="logo" />
           </div>
         </div>
 
@@ -20,17 +31,17 @@ function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
 
           <div className="menu-item">
             <span>Pages</span>
-            <img src="/icons/arrow.svg" alt="arrow" className="arrow-default" />
-            <img src="/icons/arrow-pink.svg" alt="arrow" className="arrow-hover" />
+            <img src={arrowIcon} alt="arrow" className="arrow-default" />
+            <img src={arrowPinkIcon} alt="arrow" className="arrow-hover" />
           </div>
 
           <div
-            className={`menu-item ${currentPage === 'shop' ? 'active' : ''}`}
-            onClick={() => setCurrentPage('shop')}
+            className={`menu-item ${currentPage === SHOP_PAGE ? 'active' : ''}`}
+            onClick={() => setCurrentPage(SHOP_PAGE)}
           >
             <span>Shop</span>
-            <img src="/icons/arrow.svg" alt="arrow" className="arrow-default" />
-            <img src="/icons/arrow-pink.svg" alt="arrow" className="arrow-hover" />
+            <img src={arrowIcon} alt="arrow" className="arrow-default" />
+            <img src={arrowPinkIcon} alt="arrow" className="arrow-hover" />
           </div>
 
           <div className="menu-item">
@@ -45,20 +56,20 @@ function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
 
       <div className="right-side">
         <div className="header-icon">
-          <img src="/icons/search.svg" alt="search" />
+          <img src={searchIcon} alt="search" />
         </div>
 
         <div className="header-icon">
-          <img src="/icons/user.svg" alt="user" />
+          <img src={userIcon} alt="user" />
         </div>
 
         <div className="header-icon">
-          <img src="/icons/heart.svg" alt="heart" />
+          <img src={heartIcon} alt="heart" />
           <div className="counter">{favoriteCount}</div>
         </div>
 
-        <div className="header-icon" onClick={() => setCurrentPage('cart')}>
-          <img src="/icons/cart.svg" alt="cart" />
+        <div className="header-icon" onClick={() => setCurrentPage(CART_PAGE)}>
+          <img src={cartIcon} alt="cart" />
           <div className="counter">{cartCount}</div>
         </div>
       </div>

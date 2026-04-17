@@ -1,3 +1,6 @@
+import styles from './ProductCard.module.css';
+import { heartIcon } from '../../assets';
+
 function ProductCard({
   product,
   favorites,
@@ -13,14 +16,13 @@ function ProductCard({
 
   return (
     <div className="product">
-      <div
-        className="photo"
-        style={{
-          backgroundImage: `url(${product.image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
+      <div className="photo">
+        <img
+          src={product.image}
+          alt={product.name}
+          className={styles.photoImage}
+        />
+
         <div className="top-bar">
           <div className="labels">
             {product.isSale && <div className="label sale">Sale</div>}
@@ -28,18 +30,13 @@ function ProductCard({
           </div>
 
           <div
-            className="favorites"
+            className={`${styles.favoriteButton} favorites`}
             onClick={() => toggleFavorite(product.id)}
-            style={{ cursor: 'pointer' }}
           >
             <img
-              src="/icons/heart.svg"
+              src={heartIcon}
               alt="favorites"
-              style={{
-                filter: isFavorite
-                  ? 'invert(41%) sepia(76%) saturate(1360%) hue-rotate(314deg) brightness(101%) contrast(101%)'
-                  : 'none',
-              }}
+              className={isFavorite ? styles.favoriteActive : ''}
             />
           </div>
         </div>
@@ -57,30 +54,28 @@ function ProductCard({
 
         {quantity === 0 ? (
           <button
-            onClick={() => addToCart(product.id)}
-            style={{
-              marginTop: '10px',
-              padding: '10px 16px',
-              border: 'none',
-              background: 'black',
-              color: 'white',
-              cursor: 'pointer',
-            }}
+            className={styles.buyButton}
+            onClick={() => addToCart(product)}
           >
             Buy
           </button>
         ) : (
-          <div
-            style={{
-              marginTop: '10px',
-              display: 'flex',
-              gap: '12px',
-              alignItems: 'center',
-            }}
-          >
-            <button onClick={() => decreaseQuantity(product.id)}>-</button>
-            <span>{quantity}</span>
-            <button onClick={() => increaseQuantity(product.id)}>+</button>
+          <div className={styles.quantityControls}>
+            <button
+              className={styles.quantityButton}
+              onClick={() => decreaseQuantity(product.id)}
+            >
+              -
+            </button>
+
+            <span className={styles.quantityValue}>{quantity}</span>
+
+            <button
+              className={styles.quantityButton}
+              onClick={() => increaseQuantity(product.id)}
+            >
+              +
+            </button>
           </div>
         )}
       </div>

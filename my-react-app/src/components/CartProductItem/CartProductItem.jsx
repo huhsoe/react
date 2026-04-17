@@ -1,3 +1,5 @@
+import styles from './CartProductItem.module.css';
+
 function CartProductItem({
   item,
   increaseQuantity,
@@ -6,14 +8,13 @@ function CartProductItem({
 }) {
   return (
     <div className="product">
-      <div
-        className="photo"
-        style={{
-          backgroundImage: `url(${item.image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      ></div>
+      <div className="photo">
+        <img
+          src={item.image}
+          alt={item.name}
+          className={styles.productImage}
+        />
+      </div>
 
       <div className="product-info">
         <div className="title">{item.name}</div>
@@ -21,7 +22,9 @@ function CartProductItem({
         <div className="price-wrapper">
           <div className="price-and-quantity">
             <div className="price">
-              {item.oldPrice && <div className="old-price">${item.oldPrice.toFixed(2)}</div>}
+              {item.oldPrice && (
+                <div className="old-price">${item.oldPrice.toFixed(2)}</div>
+              )}
               <div className="current-price">${item.price.toFixed(2)}</div>
             </div>
 

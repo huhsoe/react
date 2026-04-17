@@ -1,9 +1,12 @@
+import { mainDots } from '../../assets';
+import { CART_PAGE, PAGE_NAMES, SHOP_PAGE } from '../../constants';
+
 function ContentBlock({ title, breadcrumbs, setCurrentPage }) {
   return (
     <div className="top-info">
       <div className="wrapper-title">
         <div className="main-block">
-          <img src="/images/main-dots.svg" className="main-dots" alt="dots" />
+          <img src={mainDots} className="main-dots" alt="dots" />
 
           <div className="logo">
             <div className="wrapper-header">
@@ -25,8 +28,8 @@ function ContentBlock({ title, breadcrumbs, setCurrentPage }) {
                         onClick={(e) => {
                           e.preventDefault();
 
-                          if (item === 'Shop') setCurrentPage('shop');
-                          if (item === 'Cart') setCurrentPage('cart');
+                          if (item === PAGE_NAMES.SHOP) setCurrentPage(SHOP_PAGE);
+                          if (item === PAGE_NAMES.CART) setCurrentPage(CART_PAGE);
                         }}
                       >
                         {item}

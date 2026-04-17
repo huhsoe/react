@@ -2,9 +2,9 @@ import Sidebar from '../Sidebar/Sidebar';
 import ProductsHeader from '../ProductsHeader/ProductsHeader';
 import ProductGrid from '../ProductGrid/ProductGrid';
 import Pagination from '../Pagination/Pagination';
-import data from '../../data/products.json';
 
 function Showcase({
+  products,
   favorites,
   toggleFavorite,
   cart,
@@ -12,8 +12,6 @@ function Showcase({
   increaseQuantity,
   decreaseQuantity,
 }) {
-  const products = data.products;
-
   return (
     <div className="shop">
       <Sidebar />

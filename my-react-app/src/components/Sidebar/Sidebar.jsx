@@ -1,4 +1,6 @@
+import { searchIcon, seasonSaleBanner } from '../../assets';
 import data from '../../data/products.json';
+import styles from './Sidebar.module.css';
 
 function Sidebar() {
   const reviewedProducts = data.products.slice(0, 3);
@@ -8,7 +10,7 @@ function Sidebar() {
       <div className="search">
         <label>
           <input type="text" placeholder="Search" className="input search-row" />
-          <img src="/icons/search.svg" alt="search" className="search-icon" />
+          <img src={searchIcon} alt="search" className="search-icon" />
         </label>
       </div>
 
@@ -44,7 +46,13 @@ function Sidebar() {
 
               return (
                 <div className="color" key={id}>
-                  <input type="checkbox" className="color-checkbox" id={id} name={id} value={id} />
+                  <input
+                    type="checkbox"
+                    className="color-checkbox"
+                    id={id}
+                    name={id}
+                    value={id}
+                  />
                   <label htmlFor={id} className="color-name">
                     {color}
                   </label>
@@ -68,20 +76,21 @@ function Sidebar() {
           <div className="reviewed-products">
             {reviewedProducts.map((product) => (
               <div className="product" key={product.id}>
-                <div
-                  className="image"
-                  style={{
-                    backgroundImage: `url(${product.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                ></div>
+                <div className="image">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className={styles.reviewedImage}
+                  />
+                </div>
 
                 <div className="info">
                   <div className="name">{product.name}</div>
                   <div className="price">
                     <div className="current-price">${product.price.toFixed(2)}</div>
-                    {product.oldPrice && <div className="old-price">${product.oldPrice.toFixed(2)}</div>}
+                    {product.oldPrice && (
+                      <div className="old-price">${product.oldPrice.toFixed(2)}</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -90,7 +99,7 @@ function Sidebar() {
         </div>
       </div>
 
-      <img src="/images/season-sale-banner.svg" className="banner" alt="season-sale-banner" />
+      <img src={seasonSaleBanner} className="banner" alt="season-sale-banner" />
     </div>
   );
 }

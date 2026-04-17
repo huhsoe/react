@@ -5,26 +5,27 @@ import Showcase from './components/Showcase/Showcase';
 import Cart from './components/Cart/Cart';
 import Footer from './components/Footer/Footer';
 import data from './data/products.json';
+import { LS_KEYS, PAGE_NAMES, SHOP_PAGE, CART_PAGE } from './constants';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('shop');
+  const [currentPage, setCurrentPage] = useState(SHOP_PAGE);
 
   const [favorites, setFavorites] = useState(() => {
-    const savedFavorites = localStorage.getItem('favorites');
+    const savedFavorites = localStorage.getItem(LS_KEYS.FAVORITES);
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
 
   const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
+    const savedCart = localStorage.getItem(LS_KEYS.CART);
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem(LS_KEYS.FAVORITES, JSON.stringify(favorites));
   }, [favorites]);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem(LS_KEYS.CART, JSON.stringify(cart));
   }, [cart]);
 
   const toggleFavorite = (productId) => {
@@ -35,19 +36,19 @@ function App() {
     );
   };
 
-  const addToCart = (productId) => {
+  const addToCart = (product) => {
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === productId);
+      const existing = prev.find((item) => item.id === product.id);
 
       if (existing) {
         return prev.map((item) =>
-          item.id === productId
+          item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
 
-      return [...prev, { id: productId, quantity: 1 }];
+      return [...prev, { ...product, quantity: 1 }];
     });
   };
 
@@ -78,20 +79,14 @@ function App() {
   };
 
   const products = data.products;
-
-  const cartProducts = cart.map((cartItem) => {
-    const product = products.find((item) => item.id === cartItem.id);
-    return {
-      ...product,
-      quantity: cartItem.quantity,
-    };
-  });
-
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const pageTitle = currentPage === 'shop' ? 'Shop' : 'Cart';
+  const pageTitle = currentPage === SHOP_PAGE ? PAGE_NAMES.SHOP : PAGE_NAMES.CART;
+
   const breadcrumbs =
-    currentPage === 'shop' ? ['Home', 'Shop'] : ['Home', 'Shop', 'Cart'];
+    currentPage === SHOP_PAGE
+      ? [PAGE_NAMES.HOME, PAGE_NAMES.SHOP]
+      : [PAGE_NAMES.HOME, PAGE_NAMES.SHOP, PAGE_NAMES.CART];
 
   return (
     <>
@@ -110,8 +105,9 @@ function App() {
         />
 
         <div className="container">
-          {currentPage === 'shop' ? (
+          {currentPage === SHOP_PAGE ? (
             <Showcase
+              products={products}
               favorites={favorites}
               toggleFavorite={toggleFavorite}
               cart={cart}
@@ -121,7 +117,7 @@ function App() {
             />
           ) : (
             <Cart
-              cartProducts={cartProducts}
+              cartProducts={cart}
               increaseQuantity={increaseQuantity}
               decreaseQuantity={decreaseQuantity}
               removeFromCart={removeFromCart}

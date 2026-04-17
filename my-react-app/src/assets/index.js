@@ -1,0 +1,21 @@
+export { default as logoIcon } from './icons/logo.svg';
+export { default as arrowIcon } from './icons/arrow.svg';
+export { default as arrowPinkIcon } from './icons/arrow-pink.svg';
+export { default as buttonArrowIcon } from './icons/button-arrow.svg';
+export { default as cartIcon } from './icons/cart.svg';
+export { default as heartIcon } from './icons/heart.svg';
+export { default as leftPaginationArrowIcon } from './icons/left-pagin-arrow.svg';
+export { default as rightPaginationArrowIcon } from './icons/right-pagin-arrow.svg';
+export { default as searchIcon } from './icons/search.svg';
+export { default as userIcon } from './icons/user.svg';
+export { default as mastercardIcon } from './icons/mastercard.svg';
+export { default as paypalIcon } from './icons/paypal.svg';
+export { default as payoneerIcon } from './icons/payoneer.svg';
+export { default as visaIcon } from './icons/visa.svg';
+export { default as dotsIcon } from './icons/dots.svg';
+export { default as sendIcon } from './icons/send.svg';
+
+export { default as footerDotsLeft } from './images/footer-dots-left.svg';
+export { default as footerDotsRight } from './images/footer-dots-right.svg';
+export { default as mainDots } from './images/main-dots.svg';
+export { default as seasonSaleBanner } from './images/season-sale-banner.svg';

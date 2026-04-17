@@ -1,3 +1,5 @@
+import { buttonArrowIcon } from '../../assets';
+
 function PromoCodeBlock() {
   return (
     <div className="promo-code-wrapper">
@@ -13,7 +15,7 @@ function PromoCodeBlock() {
 
         <div className="button-wrapper">
           <button className="button">
-            <img src="/icons/button-arrow.svg" alt="arrow right" />
+            <img src={buttonArrowIcon} alt="arrow right" />
           </button>
           <div className="vertical-line"></div>
         </div>
