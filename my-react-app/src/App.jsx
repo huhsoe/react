@@ -1,38 +1,14 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
-  const [postId, setPostId] = useState('');
-  const [post, setPost] = useState(null);
-
-  const getPost = async () => {
-    if (!postId) return;
-
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-    const data = await response.json();
-    setPost(data);
-  };
+  const { isLoggedIn, login } = useContext(AuthContext);
 
   return (
     <div>
-      <h1>Получение поста по ID</h1>
+      <button onClick={login}>Войти</button>
 
-      <input
-        type="number"
-        placeholder="Введите ID поста"
-        value={postId}
-        onChange={(e) => setPostId(e.target.value)}
-      />
-
-      <button onClick={getPost} style={{ marginLeft: '10px' }}>
-        Получить пост
-      </button>
-
-      {post && post.id && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-        </div>
-      )}
+      {isLoggedIn && <p>Вы авторизованы!</p>}
     </div>
   );
 }
