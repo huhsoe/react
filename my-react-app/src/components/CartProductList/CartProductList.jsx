@@ -1,4 +1,5 @@
 import CartProductItem from '../CartProductItem/CartProductItem';
+import styles from './CartProductList.module.css';
 
 function CartProductList({
   items,
@@ -7,11 +8,11 @@ function CartProductList({
   removeFromCart,
 }) {
   if (items.length === 0) {
-    return <p>Your cart is empty.</p>;
+    return <p className={styles.emptyCart}>Your cart is empty.</p>;
   }
 
   return (
-    <div className="product-list">
+    <div className={styles.productList}>
       {items.map((item) => (
         <CartProductItem
           key={item.id}

@@ -7,8 +7,8 @@ function CartProductItem({
   removeFromCart,
 }) {
   return (
-    <div className="product">
-      <div className="photo">
+    <div className={styles.product}>
+      <div className={styles.photo}>
         <img
           src={item.image}
           alt={item.name}
@@ -16,43 +16,43 @@ function CartProductItem({
         />
       </div>
 
-      <div className="product-info">
-        <div className="title">{item.name}</div>
+      <div className={styles.productInfo}>
+        <div className={styles.title}>{item.name}</div>
 
-        <div className="price-wrapper">
-          <div className="price-and-quantity">
-            <div className="price">
+        <div className={styles.priceWrapper}>
+          <div className={styles.priceAndQuantity}>
+            <div className={styles.price}>
               {item.oldPrice && (
-                <div className="old-price">${item.oldPrice.toFixed(2)}</div>
+                <div className={styles.oldPrice}>${item.oldPrice.toFixed(2)}</div>
               )}
-              <div className="current-price">${item.price.toFixed(2)}</div>
+              <div className={styles.currentPrice}>${item.price.toFixed(2)}</div>
             </div>
 
-            <div className="quantity">
+            <div className={styles.quantity}>
               <div
-                className="count-botton"
+                className={styles.countButton}
                 onClick={() => decreaseQuantity(item.id)}
               >
                 -
               </div>
 
-              <div className="count">{item.quantity}</div>
+              <div className={styles.count}>{item.quantity}</div>
 
               <div
-                className="count-botton"
+                className={styles.countButton}
                 onClick={() => increaseQuantity(item.id)}
               >
                 +
               </div>
             </div>
 
-            <div className="total-price">
+            <div className={styles.totalPrice}>
               ${(item.price * item.quantity).toFixed(2)}
             </div>
           </div>
         </div>
 
-        <div className="close" onClick={() => removeFromCart(item.id)}>
+        <div className={styles.close} onClick={() => removeFromCart(item.id)}>
           X
         </div>
       </div>

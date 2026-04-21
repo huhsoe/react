@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   arrowIcon,
   arrowPinkIcon,
@@ -8,72 +9,85 @@ import {
   userIcon,
 } from '../../assets';
 import { SHOP_PAGE, CART_PAGE } from '../../constants';
+import styles from './Header.module.css';
 
 function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
-  return (
-    <header className="header">
-      <div className="left-side">
-        <div className="logo-container">
-          <div className="burger-menu">
-            <input type="checkbox" id="burger-checkbox" className="burger-checkbox" />
-            <label className="burger" htmlFor="burger-checkbox"></label>
-          </div>
+  const [isBurgerActive, setIsBurgerActive] = useState(false);
 
-          <div className="logo">
+  return (
+    <header className={styles.header}>
+      <div className={styles.leftSide}>
+        <div className={styles.logoContainer}>
+          <button
+            type="button"
+            className={`${styles.burgerMenu} ${
+              isBurgerActive ? styles.burgerActive : ''
+            }`}
+            onClick={() => setIsBurgerActive((prev) => !prev)}
+            aria-label="Toggle burger icon"
+          >
+            <span className={styles.burgerLine}></span>
+            <span className={styles.burgerLine}></span>
+            <span className={styles.burgerLine}></span>
+          </button>
+
+          <div className={styles.logo}>
             <img src={logoIcon} alt="logo" />
           </div>
         </div>
 
-        <div className="menu">
-          <div className="menu-item">
+        <nav className={styles.menu}>
+          <div className={styles.menuItem}>
             <span>Home</span>
           </div>
 
-          <div className="menu-item">
+          <div className={styles.menuItem}>
             <span>Pages</span>
-            <img src={arrowIcon} alt="arrow" className="arrow-default" />
-            <img src={arrowPinkIcon} alt="arrow" className="arrow-hover" />
+            <img src={arrowIcon} alt="arrow" className={styles.arrowDefault} />
+            <img src={arrowPinkIcon} alt="arrow" className={styles.arrowHover} />
           </div>
 
           <div
-            className={`menu-item ${currentPage === SHOP_PAGE ? 'active' : ''}`}
+            className={`${styles.menuItem} ${
+              currentPage === SHOP_PAGE ? styles.active : ''
+            }`}
             onClick={() => setCurrentPage(SHOP_PAGE)}
           >
             <span>Shop</span>
-            <img src={arrowIcon} alt="arrow" className="arrow-default" />
-            <img src={arrowPinkIcon} alt="arrow" className="arrow-hover" />
+            <img src={arrowIcon} alt="arrow" className={styles.arrowDefault} />
+            <img src={arrowPinkIcon} alt="arrow" className={styles.arrowHover} />
           </div>
 
-          <div className="menu-item">
+          <div className={styles.menuItem}>
             <span>Blog</span>
           </div>
 
-          <div className="menu-item">
+          <div className={styles.menuItem}>
             <span>Contact</span>
           </div>
-        </div>
+        </nav>
       </div>
 
-      <div className="right-side">
-        <div className="header-icon header-icon-clickable">
+      <div className={styles.rightSide}>
+        <div className={`${styles.headerIcon} ${styles.headerIconClickable}`}>
           <img src={searchIcon} alt="search" />
         </div>
 
-        <div className="header-icon header-icon-clickable">
+        <div className={`${styles.headerIcon} ${styles.headerIconClickable}`}>
           <img src={userIcon} alt="user" />
         </div>
 
-        <div className="header-icon header-icon-clickable">
+        <div className={`${styles.headerIcon} ${styles.headerIconClickable}`}>
           <img src={heartIcon} alt="heart" />
-          <div className="counter">{favoriteCount}</div>
+          <div className={styles.counter}>{favoriteCount}</div>
         </div>
 
         <div
-          className="header-icon header-icon-clickable"
+          className={`${styles.headerIcon} ${styles.headerIconClickable}`}
           onClick={() => setCurrentPage(CART_PAGE)}
         >
           <img src={cartIcon} alt="cart" />
-          <div className="counter">{cartCount}</div>
+          <div className={styles.counter}>{cartCount}</div>
         </div>
       </div>
     </header>

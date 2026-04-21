@@ -15,22 +15,24 @@ function ProductCard({
   const quantity = cartItem ? cartItem.quantity : 0;
 
   return (
-    <div className="product">
-      <div className="photo">
+    <div className={styles.product}>
+      <div className={styles.photo}>
         <img
           src={product.image}
           alt={product.name}
           className={styles.photoImage}
         />
 
-        <div className="top-bar">
-          <div className="labels">
-            {product.isSale && <div className="label sale">Sale</div>}
-            {product.isNew && <div className="label new">New</div>}
+        <div className={styles.topBar}>
+          <div className={styles.labels}>
+            {product.isSale && <div className={styles.label}>Sale</div>}
+            {product.isNew && (
+              <div className={`${styles.label} ${styles.newLabel}`}>New</div>
+            )}
           </div>
 
           <div
-            className={`${styles.favoriteButton} favorites`}
+            className={`${styles.favoriteButton} ${styles.favorites}`}
             onClick={() => toggleFavorite(product.id)}
           >
             <img
@@ -42,13 +44,13 @@ function ProductCard({
         </div>
       </div>
 
-      <div className="info">
-        <div className="name">{product.name}</div>
+      <div className={styles.info}>
+        <div className={styles.name}>{product.name}</div>
 
-        <div className="price">
-          <div className="current-price">${product.price.toFixed(2)}</div>
+        <div className={styles.priceRow}>
+          <div className={styles.currentPrice}>${product.price.toFixed(2)}</div>
           {product.oldPrice && (
-            <div className="old-price">${product.oldPrice.toFixed(2)}</div>
+            <div className={styles.oldPrice}>${product.oldPrice.toFixed(2)}</div>
           )}
         </div>
 

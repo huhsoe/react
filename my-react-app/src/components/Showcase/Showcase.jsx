@@ -2,6 +2,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import ProductsHeader from '../ProductsHeader/ProductsHeader';
 import ProductGrid from '../ProductGrid/ProductGrid';
 import Pagination from '../Pagination/Pagination';
+import styles from './Showcase.module.css';
 
 function Showcase({
   products,
@@ -34,7 +35,7 @@ function Showcase({
   setCurrentPage,
 }) {
   return (
-    <div className="shop">
+    <div className={styles.shop}>
       <Sidebar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -53,7 +54,7 @@ function Showcase({
         applyFilters={applyFilters}
       />
 
-      <div className="products-wrapper">
+      <div className={styles.productsWrapper}>
         <ProductsHeader
           count={totalCount}
           sortType={sortType}

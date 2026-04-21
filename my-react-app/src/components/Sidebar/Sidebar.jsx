@@ -39,26 +39,26 @@ function Sidebar({
     currentMin === currentMax && currentMax === maxAvailablePrice;
 
   return (
-    <div className="sidebar">
-      <div className="search">
+    <div className={styles.sidebar}>
+      <div className={styles.search}>
         <label>
           <input
             type="text"
             placeholder="Search"
-            className="input search-row"
+            className={`input ${styles.searchRow}`}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <img src={searchIcon} alt="search" className="search-icon" />
+          <img src={searchIcon} alt="search" className={styles.searchIcon} />
         </label>
       </div>
 
-      <div className="sidebar-item">
-        <div className="sidebar-title">Categories</div>
-        <div className="sidebar-content">
-          <ul className="categories-list">
+      <div className={styles.sidebarItem}>
+        <div className={styles.sidebarTitle}>Categories</div>
+        <div className={styles.sidebarContent}>
+          <ul className={styles.categoriesList}>
             <li
-              className={`category ${selectedCategory === '' ? 'active' : ''}`}
+              className={`${styles.category} ${selectedCategory === '' ? styles.activeCategory : ''}`}
               onClick={() => setSelectedCategory('')}
             >
               All
@@ -67,7 +67,9 @@ function Sidebar({
             {availableCategories.map((category) => (
               <li
                 key={category}
-                className={`category ${selectedCategory === category ? 'active' : ''}`}
+                className={`${styles.category} ${
+                  selectedCategory === category ? styles.activeCategory : ''
+                }`}
                 onClick={() => setSelectedCategory(category)}
               >
                 {category}
@@ -77,20 +79,20 @@ function Sidebar({
         </div>
       </div>
 
-      <div className="sidebar-item">
-        <div className="sidebar-title">Price</div>
-        <div className="sidebar-content">
-          <div className="price-range">
-            <div className="price-values">
+      <div className={styles.sidebarItem}>
+        <div className={styles.sidebarTitle}>Price</div>
+        <div className={styles.sidebarContent}>
+          <div className={styles.priceRange}>
+            <div className={styles.priceValues}>
               <span>${currentMin.toFixed(2)}</span>
               <span>${currentMax.toFixed(2)}</span>
             </div>
 
-            <div className="range-slider">
-              <div className="range-track"></div>
+            <div className={styles.rangeSlider}>
+              <div className={styles.rangeTrack}></div>
 
               <div
-                className="range-progress"
+                className={styles.rangeProgress}
                 style={{
                   left: `${minPercent}%`,
                   right: `${100 - maxPercent}%`,
@@ -108,7 +110,9 @@ function Sidebar({
                     setSelectedMinPrice(value);
                   }
                 }}
-                className={`range-input range-input-min ${isOverlapAtMax ? 'range-input-top' : ''}`}
+                className={`${styles.rangeInput} ${styles.rangeInputMin} ${
+                  isOverlapAtMax ? styles.rangeInputTop : ''
+                }`}
               />
 
               <input
@@ -122,31 +126,33 @@ function Sidebar({
                     setSelectedMaxPrice(value);
                   }
                 }}
-                className={`range-input range-input-max ${isOverlapAtMin ? 'range-input-top' : ''}`}
+                className={`${styles.rangeInput} ${styles.rangeInputMax} ${
+                  isOverlapAtMin ? styles.rangeInputTop : ''
+                }`}
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="sidebar-item">
-        <div className="sidebar-title">Colors</div>
-        <div className="sidebar-content">
-          <div className="colors">
+      <div className={styles.sidebarItem}>
+        <div className={styles.sidebarTitle}>Colors</div>
+        <div className={styles.sidebarContent}>
+          <div className={styles.colors}>
             {availableColors.map((color) => {
               const id = color.toLowerCase();
 
               return (
-                <div className="color" key={color}>
+                <div className={styles.color} key={color}>
                   <input
                     type="checkbox"
-                    className="color-checkbox"
+                    className={styles.colorCheckbox}
                     id={id}
                     name={id}
                     checked={selectedColors.includes(color)}
                     onChange={() => toggleColor(color)}
                   />
-                  <label htmlFor={id} className="color-name">
+                  <label htmlFor={id} className={styles.colorName}>
                     {color}
                   </label>
                 </div>
@@ -156,7 +162,7 @@ function Sidebar({
         </div>
       </div>
 
-      <div className="sidebar-item">
+      <div className={styles.sidebarItem}>
         <div className="button-wrapper">
           <button className="button" onClick={applyFilters}>
             Apply Filter
@@ -165,13 +171,13 @@ function Sidebar({
         </div>
       </div>
 
-      <div className="sidebar-item">
-        <div className="sidebar-title">Reviewed By You</div>
-        <div className="sidebar-content">
-          <div className="reviewed-products">
+      <div className={styles.sidebarItem}>
+        <div className={styles.sidebarTitle}>Reviewed By You</div>
+        <div className={styles.sidebarContent}>
+          <div className={styles.reviewedProducts}>
             {reviewedProducts.map((product) => (
-              <div className="product" key={product.id}>
-                <div className="image">
+              <div className={styles.reviewedProduct} key={product.id}>
+                <div className={styles.image}>
                   <img
                     src={product.image}
                     alt={product.name}
@@ -179,8 +185,8 @@ function Sidebar({
                   />
                 </div>
 
-                <div className="info">
-                  <div className="name">{product.name}</div>
+                <div className={styles.info}>
+                  <div className={styles.name}>{product.name}</div>
                   <div className="price">
                     <div className="current-price">${product.price.toFixed(2)}</div>
                     {product.oldPrice && (
@@ -194,7 +200,11 @@ function Sidebar({
         </div>
       </div>
 
-      <img src={seasonSaleBanner} className="banner" alt="season-sale-banner" />
+      <img
+        src={seasonSaleBanner}
+        className={styles.banner}
+        alt="season-sale-banner"
+      />
     </div>
   );
 }

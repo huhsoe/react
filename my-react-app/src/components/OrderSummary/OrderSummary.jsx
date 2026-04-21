@@ -1,3 +1,5 @@
+import styles from './OrderSummary.module.css';
+
 function OrderSummary({
   orderPrice,
   isPromoApplied,
@@ -6,28 +8,28 @@ function OrderSummary({
   handleCheckout,
 }) {
   return (
-    <div className="order">
-      <div className="title">Your Order</div>
+    <div className={styles.order}>
+      <div className={styles.title}>Your Order</div>
 
-      <div className="order-price-wrapper">
-        <div className="price-row">
-          <div className="name">Order price</div>
-          <div className="price">${orderPrice.toFixed(2)}</div>
+      <div className={styles.orderPriceWrapper}>
+        <div className={styles.priceRow}>
+          <div className={styles.name}>Order price</div>
+          <div className={styles.price}>${orderPrice.toFixed(2)}</div>
         </div>
 
-        <div className="price-row">
-          <div className="name">Discount for promo code</div>
+        <div className={styles.priceRow}>
+          <div className={styles.name}>Discount for promo code</div>
           <div>{isPromoApplied ? '10%' : 'No'}</div>
         </div>
 
-        <div className="price-row delimiter">
-          <div className="name">Delivery</div>
-          <div className="price">${delivery.toFixed(2)}</div>
+        <div className={`${styles.priceRow} ${styles.delimiter}`}>
+          <div className={styles.name}>Delivery</div>
+          <div className={styles.price}>${delivery.toFixed(2)}</div>
         </div>
 
-        <div className="price-row total">
-          <div className="name">Total</div>
-          <div className="price">${total.toFixed(2)}</div>
+        <div className={`${styles.priceRow} ${styles.total}`}>
+          <div className={styles.name}>Total</div>
+          <div className={styles.price}>${total.toFixed(2)}</div>
         </div>
       </div>
 

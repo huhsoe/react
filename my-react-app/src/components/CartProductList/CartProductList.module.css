@@ -1,0 +1,13 @@
+.productList {
+  max-width: 760px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.emptyCart {
+  font-size: 18px;
+  line-height: 28px;
+  color: #444;
+}

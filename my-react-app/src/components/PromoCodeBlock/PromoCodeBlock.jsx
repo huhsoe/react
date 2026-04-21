@@ -9,15 +9,15 @@ function PromoCodeBlock({
   isPromoApplied,
 }) {
   return (
-    <div className="promo-code-wrapper">
-      <div className="info">
-        <div className="title">You Have A Promo Code?</div>
-        <p className="description">
+    <div className={styles.promoCodeWrapper}>
+      <div className={styles.info}>
+        <div className={styles.title}>You Have A Promo Code?</div>
+        <p className={styles.description}>
           Enter the promo code and get a 10% discount on your order.
         </p>
       </div>
 
-      <div className="promo-code">
+      <div className={styles.promoCode}>
         <input
           type="text"
           name="promo-code"
@@ -47,17 +47,17 @@ function PromoCodeBlock({
         )}
       </div>
 
-      <div className="find-us">
-        <h5 className="find-us-text">Find us here:</h5>
+      <div className={styles.findUs}>
+        <h5 className={styles.findUsText}>Find us here:</h5>
 
-        <div className="find-us-links">
-          <div className="find-us-link"><a href="#">FB</a></div>
-          <div className="line"></div>
-          <div className="find-us-link"><a href="#">TW</a></div>
-          <div className="line"></div>
-          <div className="find-us-link"><a href="#">INS</a></div>
-          <div className="line"></div>
-          <div className="find-us-link"><a href="#">PT</a></div>
+        <div className={styles.findUsLinks}>
+          <div className={styles.findUsLink}><a href="#">FB</a></div>
+          <div className={styles.line}></div>
+          <div className={styles.findUsLink}><a href="#">TW</a></div>
+          <div className={styles.line}></div>
+          <div className={styles.findUsLink}><a href="#">INS</a></div>
+          <div className={styles.line}></div>
+          <div className={styles.findUsLink}><a href="#">PT</a></div>
         </div>
       </div>
     </div>

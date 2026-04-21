@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CartProductList from '../CartProductList/CartProductList';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import PromoCodeBlock from '../PromoCodeBlock/PromoCodeBlock';
+import styles from './Cart.module.css';
 
 function Cart({
   cartProducts,
@@ -44,8 +45,8 @@ function Cart({
   };
 
   return (
-    <div className="cart">
-      <div className="order-wrapper">
+    <div className={styles.cart}>
+      <div className={styles.orderWrapper}>
         <CartProductList
           items={cartProducts}
           increaseQuantity={increaseQuantity}

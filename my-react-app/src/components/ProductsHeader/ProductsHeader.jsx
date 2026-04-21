@@ -1,9 +1,10 @@
 import Sort from '../Sort/Sort';
+import styles from './ProductsHeader.module.css';
 
 function ProductsHeader({ count, sortType, setSortType }) {
   return (
-    <div className="sort-and-count">
-      <p className="products-count">
+    <div className={styles.sortAndCount}>
+      <p className={styles.productsCount}>
         There are <b>{count}</b> products in this category
       </p>
 

@@ -1,0 +1,52 @@
+.order {
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.title {
+  font-family: Josefin Sans, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 37px;
+  color: #000;
+}
+
+.orderPriceWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  font-size: 16px;
+  line-height: 27px;
+  color: #444;
+}
+
+.name {
+  max-width: 180px;
+}
+
+.price {
+  font-family: Josefin Sans, sans-serif;
+  font-size: 20px;
+  line-height: 20px;
+  color: #000;
+}
+
+.delimiter {
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(68, 68, 68, 0.2);
+}
+
+.total .name,
+.total .price {
+  font-weight: 600;
+}

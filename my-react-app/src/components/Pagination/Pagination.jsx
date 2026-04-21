@@ -1,4 +1,8 @@
-import { leftPaginationArrowIcon, rightPaginationArrowIcon } from '../../assets';
+import {
+  leftPaginationArrowIcon,
+  rightPaginationArrowIcon,
+} from '../../assets';
+import styles from './Pagination.module.css';
 
 function Pagination({ currentPage, totalPages, setCurrentPage }) {
   if (totalPages <= 1) {
@@ -20,20 +24,21 @@ function Pagination({ currentPage, totalPages, setCurrentPage }) {
   };
 
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       <div
-        className="button-left"
+        className={`${styles.buttonLeft} ${
+          currentPage === 1 ? styles.disabled : styles.clickable
+        }`}
         onClick={goToPreviousPage}
-        style={{ cursor: currentPage === 1 ? 'default' : 'pointer', opacity: currentPage === 1 ? 0.5 : 1 }}
       >
         <img src={leftPaginationArrowIcon} alt="left-arrow" />
       </div>
 
-      <div className="pages">
+      <div className={styles.pages}>
         {pages.map((page) => (
           <div
             key={page}
-            className={`page ${currentPage === page ? 'active' : ''}`}
+            className={`${styles.page} ${currentPage === page ? styles.active : ''}`}
             onClick={() => setCurrentPage(page)}
           >
             {page}
@@ -42,9 +47,10 @@ function Pagination({ currentPage, totalPages, setCurrentPage }) {
       </div>
 
       <div
-        className="button-right"
+        className={`${styles.buttonRight} ${
+          currentPage === totalPages ? styles.disabled : styles.clickable
+        }`}
         onClick={goToNextPage}
-        style={{ cursor: currentPage === totalPages ? 'default' : 'pointer', opacity: currentPage === totalPages ? 0.5 : 1 }}
       >
         <img src={rightPaginationArrowIcon} alt="right-arrow" />
       </div>
