@@ -32,6 +32,12 @@ function Sidebar({
     ((currentMax - minAvailablePrice) / (maxAvailablePrice - minAvailablePrice)) *
     100;
 
+  const isOverlapAtMin =
+    currentMin === currentMax && currentMin === minAvailablePrice;
+
+  const isOverlapAtMax =
+    currentMin === currentMax && currentMax === maxAvailablePrice;
+
   return (
     <div className="sidebar">
       <div className="search">
@@ -102,9 +108,7 @@ function Sidebar({
                     setSelectedMinPrice(value);
                   }
                 }}
-                className={`range-input range-input-min ${
-                  currentMin >= currentMax ? 'range-input-top' : ''
-                }`}
+                className={`range-input range-input-min ${isOverlapAtMax ? 'range-input-top' : ''}`}
               />
 
               <input
@@ -118,7 +122,7 @@ function Sidebar({
                     setSelectedMaxPrice(value);
                   }
                 }}
-                className="range-input range-input-max"
+                className={`range-input range-input-max ${isOverlapAtMin ? 'range-input-top' : ''}`}
               />
             </div>
           </div>

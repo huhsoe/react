@@ -14,6 +14,7 @@ export { default as payoneerIcon } from './icons/payoneer.svg';
 export { default as visaIcon } from './icons/visa.svg';
 export { default as dotsIcon } from './icons/dots.svg';
 export { default as sendIcon } from './icons/send.svg';
+export { default as sortIcon } from './icons/sort-icon.svg';
 
 export { default as footerDotsLeft } from './images/footer-dots-left.svg';
 export { default as footerDotsRight } from './images/footer-dots-right.svg';

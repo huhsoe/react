@@ -7,10 +7,12 @@ import Footer from './components/Footer/Footer';
 import data from './data/products.json';
 import { LS_KEYS, PAGE_NAMES, SHOP_PAGE, CART_PAGE } from './constants';
 
+const ITEMS_PER_PAGE = 12;
+
 function App() {
   const products = data.products;
 
-  const [currentPage, setCurrentPage] = useState(SHOP_PAGE);
+  const [currentPageName, setCurrentPageName] = useState(SHOP_PAGE);
 
   const [favorites, setFavorites] = useState(() => {
     const savedFavorites = localStorage.getItem(LS_KEYS.FAVORITES);
@@ -24,6 +26,9 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+  const [sortType, setSortType] = useState('relevance');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const availableCategories = useMemo(() => {
     return [...new Set(products.flatMap((product) => product.categories))];
@@ -68,6 +73,10 @@ function App() {
 
     return () => clearTimeout(timeout);
   }, [searchTerm]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearchTerm, appliedFilters, sortType]);
 
   const toggleFavorite = (productId) => {
     setFavorites((prev) =>
@@ -171,20 +180,44 @@ function App() {
     });
   }, [products, debouncedSearchTerm, appliedFilters]);
 
+  const sortedProducts = useMemo(() => {
+    const copiedProducts = [...filteredProducts];
+
+    if (sortType === 'name') {
+      return copiedProducts.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (sortType === 'price') {
+      return copiedProducts.sort((a, b) => a.price - b.price);
+    }
+
+    return copiedProducts;
+  }, [filteredProducts, sortType]);
+
+  const totalPages = Math.ceil(sortedProducts.length / ITEMS_PER_PAGE);
+
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+
+    return sortedProducts.slice(startIndex, endIndex);
+  }, [sortedProducts, currentPage]);
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const pageTitle = currentPage === SHOP_PAGE ? PAGE_NAMES.SHOP : PAGE_NAMES.CART;
+  const pageTitle =
+    currentPageName === SHOP_PAGE ? PAGE_NAMES.SHOP : PAGE_NAMES.CART;
 
   const breadcrumbs =
-    currentPage === SHOP_PAGE
+    currentPageName === SHOP_PAGE
       ? [PAGE_NAMES.HOME, PAGE_NAMES.SHOP]
       : [PAGE_NAMES.HOME, PAGE_NAMES.SHOP, PAGE_NAMES.CART];
 
   return (
     <>
       <Header
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        currentPage={currentPageName}
+        setCurrentPage={setCurrentPageName}
         favoriteCount={favorites.length}
         cartCount={cartCount}
       />
@@ -193,14 +226,14 @@ function App() {
         <ContentBlock
           title={pageTitle}
           breadcrumbs={breadcrumbs}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={setCurrentPageName}
         />
 
         <div className="container">
-          {currentPage === SHOP_PAGE ? (
+          {currentPageName === SHOP_PAGE ? (
             <Showcase
-              products={filteredProducts}
-              totalCount={filteredProducts.length}
+              products={paginatedProducts}
+              totalCount={sortedProducts.length}
               favorites={favorites}
               toggleFavorite={toggleFavorite}
               cart={cart}
@@ -222,6 +255,11 @@ function App() {
               selectedColors={selectedColors}
               toggleColor={toggleColor}
               applyFilters={applyFilters}
+              sortType={sortType}
+              setSortType={setSortType}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
             />
           ) : (
             <Cart

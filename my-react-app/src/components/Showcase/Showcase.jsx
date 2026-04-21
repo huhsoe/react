@@ -27,6 +27,11 @@ function Showcase({
   selectedColors,
   toggleColor,
   applyFilters,
+  sortType,
+  setSortType,
+  currentPage,
+  totalPages,
+  setCurrentPage,
 }) {
   return (
     <div className="shop">
@@ -49,7 +54,12 @@ function Showcase({
       />
 
       <div className="products-wrapper">
-        <ProductsHeader count={totalCount} />
+        <ProductsHeader
+          count={totalCount}
+          sortType={sortType}
+          setSortType={setSortType}
+        />
+
         <ProductGrid
           products={products}
           favorites={favorites}
@@ -59,7 +69,12 @@ function Showcase({
           increaseQuantity={increaseQuantity}
           decreaseQuantity={decreaseQuantity}
         />
-        <Pagination />
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );
