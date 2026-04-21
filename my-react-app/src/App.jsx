@@ -1,10 +1,23 @@
-import withLoading from './withLoading';
-import UserInfo from './UserInfo';
+import { lazy, Suspense, useState } from 'react';
 
-const UserInfoWithLoading = withLoading(UserInfo);
+const BigComponent = lazy(() => import('./BigComponent'));
 
 function App() {
-  return <UserInfoWithLoading />;
+  const [showComponent, setShowComponent] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setShowComponent(true)}>
+        Показать компонент
+      </button>
+
+      {showComponent && (
+        <Suspense fallback="Загрузка компонента...">
+          <BigComponent />
+        </Suspense>
+      )}
+    </div>
+  );
 }
 
 export default App;
