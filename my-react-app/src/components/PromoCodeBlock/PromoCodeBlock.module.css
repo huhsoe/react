@@ -1,0 +1,19 @@
+.messageArea {
+  min-height: 24px;
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+.promoMessage {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}

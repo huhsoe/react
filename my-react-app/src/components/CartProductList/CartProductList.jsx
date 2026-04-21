@@ -6,6 +6,10 @@ function CartProductList({
   decreaseQuantity,
   removeFromCart,
 }) {
+  if (items.length === 0) {
+    return <p>Your cart is empty.</p>;
+  }
+
   return (
     <div className="product-list">
       {items.map((item) => (

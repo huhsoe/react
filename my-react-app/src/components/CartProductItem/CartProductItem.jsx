@@ -35,7 +35,9 @@ function CartProductItem({
               >
                 -
               </div>
+
               <div className="count">{item.quantity}</div>
+
               <div
                 className="count-botton"
                 onClick={() => increaseQuantity(item.id)}

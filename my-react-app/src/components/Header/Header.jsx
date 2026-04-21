@@ -55,20 +55,23 @@ function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
       </div>
 
       <div className="right-side">
-        <div className="header-icon">
+        <div className="header-icon header-icon-clickable">
           <img src={searchIcon} alt="search" />
         </div>
 
-        <div className="header-icon">
+        <div className="header-icon header-icon-clickable">
           <img src={userIcon} alt="user" />
         </div>
 
-        <div className="header-icon">
+        <div className="header-icon header-icon-clickable">
           <img src={heartIcon} alt="heart" />
           <div className="counter">{favoriteCount}</div>
         </div>
 
-        <div className="header-icon" onClick={() => setCurrentPage(CART_PAGE)}>
+        <div
+          className="header-icon header-icon-clickable"
+          onClick={() => setCurrentPage(CART_PAGE)}
+        >
           <img src={cartIcon} alt="cart" />
           <div className="counter">{cartCount}</div>
         </div>
