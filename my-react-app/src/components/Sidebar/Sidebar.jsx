@@ -2,14 +2,47 @@ import { searchIcon, seasonSaleBanner } from '../../assets';
 import data from '../../data/products.json';
 import styles from './Sidebar.module.css';
 
-function Sidebar() {
+function Sidebar({
+  searchTerm,
+  setSearchTerm,
+  availableCategories,
+  availableColors,
+  minAvailablePrice,
+  maxAvailablePrice,
+  selectedCategory,
+  setSelectedCategory,
+  selectedMinPrice,
+  setSelectedMinPrice,
+  selectedMaxPrice,
+  setSelectedMaxPrice,
+  selectedColors,
+  toggleColor,
+  applyFilters,
+}) {
   const reviewedProducts = data.products.slice(0, 3);
+
+  const currentMin = Number(selectedMinPrice || minAvailablePrice);
+  const currentMax = Number(selectedMaxPrice || maxAvailablePrice);
+
+  const minPercent =
+    ((currentMin - minAvailablePrice) / (maxAvailablePrice - minAvailablePrice)) *
+    100;
+
+  const maxPercent =
+    ((currentMax - minAvailablePrice) / (maxAvailablePrice - minAvailablePrice)) *
+    100;
 
   return (
     <div className="sidebar">
       <div className="search">
         <label>
-          <input type="text" placeholder="Search" className="input search-row" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="input search-row"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <img src={searchIcon} alt="search" className="search-icon" />
         </label>
       </div>
@@ -18,11 +51,22 @@ function Sidebar() {
         <div className="sidebar-title">Categories</div>
         <div className="sidebar-content">
           <ul className="categories-list">
-            <li className="category">All</li>
-            <li className="category active">Men</li>
-            <li className="category">Women</li>
-            <li className="category">Accessories</li>
-            <li className="category">New Arrivals</li>
+            <li
+              className={`category ${selectedCategory === '' ? 'active' : ''}`}
+              onClick={() => setSelectedCategory('')}
+            >
+              All
+            </li>
+
+            {availableCategories.map((category) => (
+              <li
+                key={category}
+                className={`category ${selectedCategory === category ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -30,9 +74,53 @@ function Sidebar() {
       <div className="sidebar-item">
         <div className="sidebar-title">Price</div>
         <div className="sidebar-content">
-          <div className="price-bar">
-            <input type="text" placeholder="0" className="input" />
-            <input type="text" placeholder="200" className="input" />
+          <div className="price-range">
+            <div className="price-values">
+              <span>${currentMin.toFixed(2)}</span>
+              <span>${currentMax.toFixed(2)}</span>
+            </div>
+
+            <div className="range-slider">
+              <div className="range-track"></div>
+
+              <div
+                className="range-progress"
+                style={{
+                  left: `${minPercent}%`,
+                  right: `${100 - maxPercent}%`,
+                }}
+              ></div>
+
+              <input
+                type="range"
+                min={minAvailablePrice}
+                max={maxAvailablePrice}
+                value={currentMin}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value <= currentMax) {
+                    setSelectedMinPrice(value);
+                  }
+                }}
+                className={`range-input range-input-min ${
+                  currentMin >= currentMax ? 'range-input-top' : ''
+                }`}
+              />
+
+              <input
+                type="range"
+                min={minAvailablePrice}
+                max={maxAvailablePrice}
+                value={currentMax}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value >= currentMin) {
+                    setSelectedMaxPrice(value);
+                  }
+                }}
+                className="range-input range-input-max"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -41,17 +129,18 @@ function Sidebar() {
         <div className="sidebar-title">Colors</div>
         <div className="sidebar-content">
           <div className="colors">
-            {['Black', 'Blue', 'Red', 'Yellow', 'Green'].map((color) => {
+            {availableColors.map((color) => {
               const id = color.toLowerCase();
 
               return (
-                <div className="color" key={id}>
+                <div className="color" key={color}>
                   <input
                     type="checkbox"
                     className="color-checkbox"
                     id={id}
                     name={id}
-                    value={id}
+                    checked={selectedColors.includes(color)}
+                    onChange={() => toggleColor(color)}
                   />
                   <label htmlFor={id} className="color-name">
                     {color}
@@ -65,7 +154,9 @@ function Sidebar() {
 
       <div className="sidebar-item">
         <div className="button-wrapper">
-          <button className="button">Apply Filter</button>
+          <button className="button" onClick={applyFilters}>
+            Apply Filter
+          </button>
           <div className="vertical-line"></div>
         </div>
       </div>

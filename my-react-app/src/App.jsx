@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Header from './components/Header/Header';
 import ContentBlock from './components/ContentBlock/ContentBlock';
 import Showcase from './components/Showcase/Showcase';
@@ -8,6 +8,8 @@ import data from './data/products.json';
 import { LS_KEYS, PAGE_NAMES, SHOP_PAGE, CART_PAGE } from './constants';
 
 function App() {
+  const products = data.products;
+
   const [currentPage, setCurrentPage] = useState(SHOP_PAGE);
 
   const [favorites, setFavorites] = useState(() => {
@@ -20,6 +22,37 @@ function App() {
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+  const availableCategories = useMemo(() => {
+    return [...new Set(products.flatMap((product) => product.categories))];
+  }, [products]);
+
+  const availableColors = useMemo(() => {
+    return [...new Set(products.map((product) => product.color))];
+  }, [products]);
+
+  const minAvailablePrice = useMemo(() => {
+    return Math.min(...products.map((product) => product.price));
+  }, [products]);
+
+  const maxAvailablePrice = useMemo(() => {
+    return Math.max(...products.map((product) => product.price));
+  }, [products]);
+
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedMinPrice, setSelectedMinPrice] = useState('');
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState('');
+  const [selectedColors, setSelectedColors] = useState([]);
+
+  const [appliedFilters, setAppliedFilters] = useState({
+    category: '',
+    minPrice: '',
+    maxPrice: '',
+    colors: [],
+  });
+
   useEffect(() => {
     localStorage.setItem(LS_KEYS.FAVORITES, JSON.stringify(favorites));
   }, [favorites]);
@@ -27,6 +60,14 @@ function App() {
   useEffect(() => {
     localStorage.setItem(LS_KEYS.CART, JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [searchTerm]);
 
   const toggleFavorite = (productId) => {
     setFavorites((prev) =>
@@ -78,7 +119,58 @@ function App() {
     setCart((prev) => prev.filter((item) => item.id !== productId));
   };
 
-  const products = data.products;
+  const applyFilters = () => {
+    setAppliedFilters({
+      category: selectedCategory,
+      minPrice: selectedMinPrice,
+      maxPrice: selectedMaxPrice,
+      colors: selectedColors,
+    });
+  };
+
+  const toggleColor = (color) => {
+    setSelectedColors((prev) =>
+      prev.includes(color)
+        ? prev.filter((item) => item !== color)
+        : [...prev, color]
+    );
+  };
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesSearch = product.name
+        .toLowerCase()
+        .includes(debouncedSearchTerm.toLowerCase());
+
+      const matchesCategory = appliedFilters.category
+        ? product.categories.includes(appliedFilters.category)
+        : true;
+
+      const matchesMinPrice =
+        appliedFilters.minPrice !== ''
+          ? product.price >= Number(appliedFilters.minPrice)
+          : true;
+
+      const matchesMaxPrice =
+        appliedFilters.maxPrice !== ''
+          ? product.price <= Number(appliedFilters.maxPrice)
+          : true;
+
+      const matchesColors =
+        appliedFilters.colors.length > 0
+          ? appliedFilters.colors.includes(product.color)
+          : true;
+
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesMinPrice &&
+        matchesMaxPrice &&
+        matchesColors
+      );
+    });
+  }, [products, debouncedSearchTerm, appliedFilters]);
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const pageTitle = currentPage === SHOP_PAGE ? PAGE_NAMES.SHOP : PAGE_NAMES.CART;
@@ -107,13 +199,29 @@ function App() {
         <div className="container">
           {currentPage === SHOP_PAGE ? (
             <Showcase
-              products={products}
+              products={filteredProducts}
+              totalCount={filteredProducts.length}
               favorites={favorites}
               toggleFavorite={toggleFavorite}
               cart={cart}
               addToCart={addToCart}
               increaseQuantity={increaseQuantity}
               decreaseQuantity={decreaseQuantity}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              availableCategories={availableCategories}
+              availableColors={availableColors}
+              minAvailablePrice={minAvailablePrice}
+              maxAvailablePrice={maxAvailablePrice}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              selectedMinPrice={selectedMinPrice}
+              setSelectedMinPrice={setSelectedMinPrice}
+              selectedMaxPrice={selectedMaxPrice}
+              setSelectedMaxPrice={setSelectedMaxPrice}
+              selectedColors={selectedColors}
+              toggleColor={toggleColor}
+              applyFilters={applyFilters}
             />
           ) : (
             <Cart
