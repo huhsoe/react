@@ -1,38 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import LoginForm from './LoginForm';
+import RenderCounter from './RenderCounter';
+import CustomButton from './CustomButton';
 
 function App() {
-  const [postId, setPostId] = useState('');
-  const [post, setPost] = useState(null);
+  const buttonRef = useRef(null);
+  const [count, setCount] = useState(0);
 
-  const getPost = async () => {
-    if (!postId) return;
-
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-    const data = await response.json();
-    setPost(data);
-  };
+  useEffect(() => {
+    buttonRef.current?.focus();
+  }, []);
 
   return (
     <div>
-      <h1>Получение поста по ID</h1>
+      <h1>Работа с формами</h1>
 
-      <input
-        type="number"
-        placeholder="Введите ID поста"
-        value={postId}
-        onChange={(e) => setPostId(e.target.value)}
-      />
+      <h2>Задание 1</h2>
+      <LoginForm />
 
-      <button onClick={getPost} style={{ marginLeft: '10px' }}>
-        Получить пост
+      <h2 style={{ marginTop: '20px' }}>Задание 2</h2>
+      <RenderCounter />
+      <button onClick={() => setCount((prev) => prev + 1)}>
+        Вызвать ререндер ({count})
       </button>
 
-      {post && post.id && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-        </div>
-      )}
+      <h2 style={{ marginTop: '20px' }}>Задание 3</h2>
+      <CustomButton ref={buttonRef}>Кнопка с ref</CustomButton>
     </div>
   );
 }
