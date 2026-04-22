@@ -1,39 +1,19 @@
-import { useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import MainLayout from './layout/MainLayout';
+import PostsPage from './pages/PostsPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
-  const [postId, setPostId] = useState('');
-  const [post, setPost] = useState(null);
-
-  const getPost = async () => {
-    if (!postId) return;
-
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-    const data = await response.json();
-    setPost(data);
-  };
-
   return (
-    <div>
-      <h1>Получение поста по ID</h1>
-
-      <input
-        type="number"
-        placeholder="Введите ID поста"
-        value={postId}
-        onChange={(e) => setPostId(e.target.value)}
-      />
-
-      <button onClick={getPost} style={{ marginLeft: '10px' }}>
-        Получить пост
-      </button>
-
-      {post && post.id && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-        </div>
-      )}
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Navigate to="/posts" replace />} />
+        <Route path="posts" element={<PostsPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="contact" element={<ContactPage />} />
+      </Route>
+    </Routes>
   );
 }
 
