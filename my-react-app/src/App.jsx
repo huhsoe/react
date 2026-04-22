@@ -1,20 +1,32 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import PostsPage from './pages/PostsPage';
-import AboutPage from './pages/AboutPage';
-import ContactPage from './pages/ContactPage';
+import PostDetailsPage from './pages/PostDetailsPage';
+import NotFoundPage from './pages/NotFoundPage';
+import RouteErrorPage from './pages/RouteErrorPage';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <HomePage />,
+  },
+  {
+    path: '/posts',
+    element: <PostsPage />,
+    errorElement: <RouteErrorPage />,
+  },
+  {
+    path: '/posts/:id',
+    element: <PostDetailsPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
+  },
+]);
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Navigate to="/posts" replace />} />
-        <Route path="posts" element={<PostsPage />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="contact" element={<ContactPage />} />
-      </Route>
-    </Routes>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

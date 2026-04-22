@@ -6,3 +6,24 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
+.page {
+  padding: 40px;
+}
+
+.button {
+  padding: 10px 16px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.list {
+  padding-left: 20px;
+}
+
+.list li {
+  margin-bottom: 10px;
+}
