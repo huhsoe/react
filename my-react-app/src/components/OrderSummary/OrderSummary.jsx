@@ -1,12 +1,29 @@
+import { useCart } from '../../context/CartContext';
 import styles from './OrderSummary.module.css';
 
 function OrderSummary({
-  orderPrice,
-  isPromoApplied,
-  delivery,
-  total,
-  handleCheckout,
+  orderPrice = 0,
+  isPromoApplied = false,
+  promoDiscountPercent = 0,
+  delivery = 0,
+  total = 0,
 }) {
+  const { cartProducts } = useCart();
+
+  const discountLabel = isPromoApplied ? `${promoDiscountPercent}%` : 'No';
+
+  const handleCheckout = () => {
+    const orderData = {
+      products: cartProducts,
+      orderPrice,
+      discount: discountLabel,
+      delivery,
+      total,
+    };
+
+    console.log('Order data:', orderData);
+  };
+
   return (
     <div className={styles.order}>
       <div className={styles.title}>Your Order</div>
@@ -19,7 +36,7 @@ function OrderSummary({
 
         <div className={styles.priceRow}>
           <div className={styles.name}>Discount for promo code</div>
-          <div>{isPromoApplied ? '10%' : 'No'}</div>
+          <div>{discountLabel}</div>
         </div>
 
         <div className={`${styles.priceRow} ${styles.delimiter}`}>

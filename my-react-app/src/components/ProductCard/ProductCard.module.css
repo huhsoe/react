@@ -1,6 +1,5 @@
 .product {
-  max-width: 262px;
-  width: 100%;
+  width: 262px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -13,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 22px;
   overflow: hidden;
 }
 
@@ -36,7 +35,6 @@
 
 .labels {
   display: flex;
-  align-items: center;
   gap: 15px;
 }
 
@@ -44,24 +42,19 @@
   font-size: 10px;
   font-weight: 800;
   line-height: 10px;
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
   text-transform: uppercase;
   padding: 5px 10px;
-  background: rgba(255, 142, 142, 1);
+  background: #ff8e8e;
 }
 
 .newLabel {
-  background: rgba(149, 204, 181, 1);
-}
-
-.favorites {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #95ccb5;
 }
 
 .favoriteButton {
   cursor: pointer;
+  display: flex;
 }
 
 .favoriteActive {
@@ -79,7 +72,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 27px;
-  color: #444444;
+  color: #444;
 }
 
 .priceRow {
@@ -89,51 +82,51 @@
 }
 
 .currentPrice {
-  font-family: Josefin Sans, sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 20px;
-  font-weight: 400;
   line-height: 20px;
 }
 
 .oldPrice {
-  font-family: Josefin Sans, sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 16px;
   font-weight: 300;
   line-height: 16px;
-  color: rgba(68, 68, 68, 1);
+  color: #444;
   text-decoration: line-through;
 }
 
 .buyButton {
-  margin-top: 10px;
-  padding: 12px 18px;
+  width: fit-content;
+  margin-top: 4px;
+  padding: 9px 18px;
   border: none;
   background: #000;
   color: #fff;
   cursor: pointer;
-  font-size: 14px;
-  min-width: 110px;
+  font-size: 13px;
 }
 
 .quantityControls {
-  margin-top: 10px;
+  width: fit-content;
+  margin-top: 4px;
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 14px;
+  background: #f8f8fb;
+  padding: 10px 16px;
 }
 
 .quantityButton {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #000;
-  background: #fff;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  font-size: 22px;
-  line-height: 1;
+  font-size: 18px;
+  color: #999;
 }
 
 .quantityValue {
-  min-width: 20px;
+  min-width: 16px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
 }

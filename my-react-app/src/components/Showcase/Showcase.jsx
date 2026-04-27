@@ -1,83 +1,24 @@
-import Sidebar from '../Sidebar/Sidebar';
+import Pagination from '../Pagination/Pagination';
 import ProductsHeader from '../ProductsHeader/ProductsHeader';
 import ProductGrid from '../ProductGrid/ProductGrid';
-import Pagination from '../Pagination/Pagination';
+import Sidebar from '../Sidebar/Sidebar';
 import styles from './Showcase.module.css';
 
-function Showcase({
-  products,
-  totalCount,
-  favorites,
-  toggleFavorite,
-  cart,
-  addToCart,
-  increaseQuantity,
-  decreaseQuantity,
-  searchTerm,
-  setSearchTerm,
-  availableCategories,
-  availableColors,
-  minAvailablePrice,
-  maxAvailablePrice,
-  selectedCategory,
-  setSelectedCategory,
-  selectedMinPrice,
-  setSelectedMinPrice,
-  selectedMaxPrice,
-  setSelectedMaxPrice,
-  selectedColors,
-  toggleColor,
-  applyFilters,
-  sortType,
-  setSortType,
-  currentPage,
-  totalPages,
-  setCurrentPage,
-}) {
+function Showcase({ catalog }) {
+  const { display, search, filters, sort, pagination } = catalog;
+
   return (
-    <div className={styles.shop}>
-      <Sidebar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        availableCategories={availableCategories}
-        availableColors={availableColors}
-        minAvailablePrice={minAvailablePrice}
-        maxAvailablePrice={maxAvailablePrice}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        selectedMinPrice={selectedMinPrice}
-        setSelectedMinPrice={setSelectedMinPrice}
-        selectedMaxPrice={selectedMaxPrice}
-        setSelectedMaxPrice={setSelectedMaxPrice}
-        selectedColors={selectedColors}
-        toggleColor={toggleColor}
-        applyFilters={applyFilters}
-      />
+    <section className={styles.shop}>
+      <Sidebar search={search} filters={filters} />
 
       <div className={styles.productsWrapper}>
-        <ProductsHeader
-          count={totalCount}
-          sortType={sortType}
-          setSortType={setSortType}
-        />
+        <ProductsHeader count={display.totalCount} sort={sort} />
 
-        <ProductGrid
-          products={products}
-          favorites={favorites}
-          toggleFavorite={toggleFavorite}
-          cart={cart}
-          addToCart={addToCart}
-          increaseQuantity={increaseQuantity}
-          decreaseQuantity={decreaseQuantity}
-        />
+        <ProductGrid products={display.products} />
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-        />
+        <Pagination pagination={pagination} />
       </div>
-    </div>
+    </section>
   );
 }
 

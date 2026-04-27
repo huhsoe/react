@@ -1,13 +1,16 @@
 .productList {
-  max-width: 760px;
-  width: 100%;
+  width: 720px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
 }
 
 .emptyCart {
-  font-size: 18px;
-  line-height: 28px;
-  color: #444;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 24px;
+  line-height: 34px;
+  color: #000;
+  padding-bottom: 24px;
 }

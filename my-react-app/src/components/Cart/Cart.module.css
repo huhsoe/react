@@ -1,12 +1,16 @@
 .cart {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
+  width: 100%;
+  max-width: 1140px;
+  margin: 80px auto 0;
 }
 
-.orderWrapper {
-  display: flex;
-  justify-content: space-between;
+.layout {
+  display: grid;
+  grid-template-columns: 720px 360px;
+  column-gap: 60px;
   align-items: flex-start;
-  gap: 40px;
+}
+
+.leftColumn {
+  width: 720px;
 }

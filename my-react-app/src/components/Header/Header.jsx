@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   arrowIcon,
   arrowPinkIcon,
@@ -8,11 +8,17 @@ import {
   searchIcon,
   userIcon,
 } from '../../assets';
-import { SHOP_PAGE, CART_PAGE } from '../../constants';
+import { useCart } from '../../context/CartContext';
+import { useFavorites } from '../../context/FavoritesContext';
+import { ROUTES } from '../../constants';
 import styles from './Header.module.css';
+import { useState } from 'react';
 
-function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
+function Header() {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
+  const { cartCount } = useCart();
+  const { favorites } = useFavorites();
+  const navigate = useNavigate();
 
   return (
     <header className={styles.header}>
@@ -47,16 +53,16 @@ function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
             <img src={arrowPinkIcon} alt="arrow" className={styles.arrowHover} />
           </div>
 
-          <div
-            className={`${styles.menuItem} ${
-              currentPage === SHOP_PAGE ? styles.active : ''
-            }`}
-            onClick={() => setCurrentPage(SHOP_PAGE)}
+          <NavLink
+            to={ROUTES.SHOP}
+            className={({ isActive }) =>
+              `${styles.menuItem} ${isActive ? styles.active : ''}`
+            }
           >
             <span>Shop</span>
             <img src={arrowIcon} alt="arrow" className={styles.arrowDefault} />
             <img src={arrowPinkIcon} alt="arrow" className={styles.arrowHover} />
-          </div>
+          </NavLink>
 
           <div className={styles.menuItem}>
             <span>Blog</span>
@@ -79,12 +85,12 @@ function Header({ currentPage, setCurrentPage, favoriteCount, cartCount }) {
 
         <div className={`${styles.headerIcon} ${styles.headerIconClickable}`}>
           <img src={heartIcon} alt="heart" />
-          <div className={styles.counter}>{favoriteCount}</div>
+          <div className={styles.counter}>{favorites.length}</div>
         </div>
 
         <div
           className={`${styles.headerIcon} ${styles.headerIconClickable}`}
-          onClick={() => setCurrentPage(CART_PAGE)}
+          onClick={() => navigate(ROUTES.CART)}
         >
           <img src={cartIcon} alt="cart" />
           <div className={styles.counter}>{cartCount}</div>

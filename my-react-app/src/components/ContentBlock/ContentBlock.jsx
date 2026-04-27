@@ -1,52 +1,75 @@
+import { Link, useLocation } from 'react-router-dom';
 import { mainDots } from '../../assets';
-import { CART_PAGE, PAGE_NAMES, SHOP_PAGE } from '../../constants';
+import { ROUTES } from '../../constants';
+import styles from './ContentBlock.module.css';
 
-function ContentBlock({ title, breadcrumbs, setCurrentPage }) {
+function ContentBlock({ productTitle = '' }) {
+  const location = useLocation();
+
+  const isCartPage = location.pathname === ROUTES.CART;
+  const isProductPage = location.pathname.startsWith('/product');
+  const isShopPage =
+    location.pathname === ROUTES.ROOT || location.pathname === ROUTES.SHOP;
+
+  const title = isCartPage ? 'Cart' : 'Shop';
+
+  const breadcrumbs = [{ label: 'Home', to: ROUTES.ROOT }];
+
+  if (isCartPage) {
+    breadcrumbs.push(
+      { label: 'Shop', to: ROUTES.SHOP },
+      { label: 'Cart' }
+    );
+  } else if (isProductPage) {
+    breadcrumbs.push({ label: 'Shop', to: ROUTES.SHOP });
+
+    if (productTitle) {
+      breadcrumbs.push({ label: productTitle });
+    }
+  } else if (isShopPage) {
+    breadcrumbs.push({ label: 'Shop' });
+  }
+
   return (
-    <div className="top-info">
-      <div className="wrapper-title">
-        <div className="main-block">
-          <img src={mainDots} className="main-dots" alt="dots" />
+    <section className={styles.contentBlock}>
+      <div className={styles.left}>
+        <img className={styles.dots} src={mainDots} alt="dots background" />
 
-          <div className="logo">
-            <div className="wrapper-header">
-              <div className="header-main">{title}</div>
+        <div className={styles.meta}>
+          <h1 className={styles.title}>{title}</h1>
 
-              <div className="menu">
-                <div className="line-vertical"></div>
+          <div className={styles.breadcrumbs}>
+            <span className={styles.separator}></span>
 
-                {breadcrumbs.map((item, index) => {
-                  const isActive = index === breadcrumbs.length - 1;
+            {breadcrumbs.map((item, index) => {
+              const isLast = index === breadcrumbs.length - 1;
 
-                  return (
-                    <div
-                      key={index}
-                      className={`menu-item ${isActive ? 'active' : ''}`}
+              return (
+                <div className={styles.crumbItem} key={`${item.label}-${index}`}>
+                  {item.to && !isLast ? (
+                    <Link to={item.to} className={styles.crumbLink}>
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span
+                      className={`${styles.crumbText} ${
+                        isLast ? styles.crumbTextActive : ''
+                      }`}
                     >
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-
-                          if (item === PAGE_NAMES.SHOP) setCurrentPage(SHOP_PAGE);
-                          if (item === PAGE_NAMES.CART) setCurrentPage(CART_PAGE);
-                        }}
-                      >
-                        {item}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="line"></div>
+                      {item.label}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
-
-        <div className="main-banner"></div>
       </div>
-    </div>
+
+      <div className={styles.right}>
+        <div className={styles.preview} />
+      </div>
+    </section>
   );
 }
 

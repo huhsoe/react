@@ -1,22 +1,12 @@
-import Header from '../components/Header/Header';
-import ContentBlock from '../components/ContentBlock/ContentBlock';
+import data from '../data/products.json';
 import Showcase from '../components/Showcase/Showcase';
-import Footer from '../components/Footer/Footer';
-import { PAGE_NAMES } from '../constants';
+import useShopCatalog from '../hooks/useShopCatalog';
 
 function ShopPage() {
-  return (
-    <>
-      <Header />
-      <main className="main">
-        <ContentBlock title="Shop" breadcrumbs={[PAGE_NAMES.HOME, PAGE_NAMES.SHOP]} />
-        <div className="container">
-          <Showcase />
-        </div>
-      </main>
-      <Footer />
-    </>
-  );
+  const products = data.products;
+  const catalog = useShopCatalog(products);
+
+  return <Showcase catalog={catalog} />;
 }
 
 export default ShopPage;

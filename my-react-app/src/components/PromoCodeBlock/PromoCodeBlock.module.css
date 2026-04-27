@@ -1,19 +1,21 @@
-.promoCodeWrapper {
-  max-width: 620px;
+.promoBlock {
+  max-width: 375px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 40px;
+  margin-top: 60px;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
 .title {
-  font-family: Josefin Sans, sans-serif;
+  margin: 0;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 32px;
   font-weight: 400;
   line-height: 37px;
@@ -21,70 +23,93 @@
 }
 
 .description {
-  max-width: 460px;
+  margin: 0;
   font-size: 16px;
   font-weight: 400;
   line-height: 27px;
   color: #444;
-  margin: 0;
 }
 
-.promoCode {
+.formRow {
   display: flex;
-  align-items: flex-end;
-  gap: 28px;
+  align-items: flex-start;
+  gap: 12px;
 }
 
-.messageArea {
-  min-height: 24px;
-  margin-top: 4px;
-  margin-bottom: 20px;
+.inputWrapper {
+  flex: 1;
 }
 
-.promoMessage {
+.input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(68, 68, 68, 0.2);
+  background: transparent;
+  outline: none;
+  padding: 0 0 15px;
   font-size: 14px;
-  line-height: 20px;
-  margin: 0;
+  line-height: 24px;
+  color: #000;
+}
+
+.message {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 .success {
-  color: green;
+  color: #61c08b;
 }
 
 .error {
-  color: red;
+  color: #ff6b6b;
 }
 
-.findUs {
+.buttonWrapper {
+  max-width: 54px;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 18px;
+  gap: 2px;
+  cursor: pointer;
 }
 
-.findUsText {
-  font-family: Josefin Sans, sans-serif;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 24px;
-  color: #000;
-  margin: 0;
+.button {
+  width: 52px;
+  height: 50px;
+  border: none;
+  background: #000;
+  cursor: pointer;
 }
 
-.findUsLinks {
+.verticalLine {
+  width: 2px;
+  height: 50px;
+  background: #000;
+}
+
+.socialsTitle {
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 170%;
+}
+
+.socialsList {
   display: flex;
-  align-items: center;
   gap: 15px;
+  align-items: center;
 }
 
-.findUsLink a {
+.socialsList a {
   text-decoration: none;
   color: #444;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 27px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
 }
 
-.line {
+.socialsList span {
   width: 10px;
   height: 1px;
   background: #444;

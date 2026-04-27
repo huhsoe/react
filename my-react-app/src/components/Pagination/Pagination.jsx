@@ -4,7 +4,9 @@ import {
 } from '../../assets';
 import styles from './Pagination.module.css';
 
-function Pagination({ currentPage, totalPages, setCurrentPage }) {
+function Pagination({ pagination }) {
+  const { currentPage, totalPages, setCurrentPage } = pagination;
+
   if (totalPages <= 1) {
     return null;
   }
@@ -13,13 +15,13 @@ function Pagination({ currentPage, totalPages, setCurrentPage }) {
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
+      setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
+      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
@@ -38,7 +40,9 @@ function Pagination({ currentPage, totalPages, setCurrentPage }) {
         {pages.map((page) => (
           <div
             key={page}
-            className={`${styles.page} ${currentPage === page ? styles.active : ''}`}
+            className={`${styles.page} ${
+              currentPage === page ? styles.active : ''
+            }`}
             onClick={() => setCurrentPage(page)}
           >
             {page}

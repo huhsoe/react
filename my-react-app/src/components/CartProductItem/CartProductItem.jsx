@@ -1,11 +1,9 @@
+import { useCart } from '../../context/CartContext';
 import styles from './CartProductItem.module.css';
 
-function CartProductItem({
-  item,
-  increaseQuantity,
-  decreaseQuantity,
-  removeFromCart,
-}) {
+function CartProductItem({ item }) {
+  const { increaseQuantity, decreaseQuantity, removeFromCart } = useCart();
+
   return (
     <div className={styles.product}>
       <div className={styles.photo}>

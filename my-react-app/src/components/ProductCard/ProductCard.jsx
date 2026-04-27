@@ -1,17 +1,14 @@
-import styles from './ProductCard.module.css';
 import { heartIcon } from '../../assets';
+import { useCart } from '../../context/CartContext';
+import { useFavorites } from '../../context/FavoritesContext';
+import styles from './ProductCard.module.css';
 
-function ProductCard({
-  product,
-  favorites,
-  toggleFavorite,
-  cart,
-  addToCart,
-  increaseQuantity,
-  decreaseQuantity,
-}) {
+function ProductCard({ product }) {
+  const { favorites, toggleFavorite } = useFavorites();
+  const { cartProducts, addToCart, increaseQuantity, decreaseQuantity } = useCart();
+
   const isFavorite = favorites.includes(product.id);
-  const cartItem = cart.find((item) => item.id === product.id);
+  const cartItem = cartProducts.find((item) => item.id === product.id);
   const quantity = cartItem ? cartItem.quantity : 0;
 
   return (
