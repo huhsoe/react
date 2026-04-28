@@ -8,9 +8,16 @@ function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path={ROUTES.ROOT} element={<Navigate to={ROUTES.SHOP} replace />} />
+        <Route
+          path={ROUTES.ROOT}
+          element={<Navigate to={ROUTES.SHOP} replace />}
+        />
+
         <Route path={ROUTES.SHOP} element={<ShopPage />} />
+
         <Route path={ROUTES.CART} element={<CartPage />} />
+
+        <Route path="*" element={<Navigate to={ROUTES.SHOP} replace />} />
       </Route>
     </Routes>
   );
