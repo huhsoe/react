@@ -12,7 +12,7 @@ function ProductCard({ product }) {
   const quantity = cartItem ? cartItem.quantity : 0;
 
   return (
-    <div className={styles.product}>
+    <div className={styles.product} data-testid="product-card">
       <div className={styles.photo}>
         <img
           src={product.image}

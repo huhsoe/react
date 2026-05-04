@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -42,7 +42,7 @@ describe('FASHIONEE integration tests', () => {
     });
   });
 
-  test('changes product order after sorting by price', async () => {
+  test('changes first product card after sorting by price', async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ShopPage />);
@@ -55,9 +55,10 @@ describe('FASHIONEE integration tests', () => {
       expect(sortSelect.value).toBe('price');
     });
 
-    const sortedProduct = screen.getAllByText('Short shorts with straps');
+    const productCards = screen.getAllByTestId('product-card');
+    const firstCard = productCards[0];
 
-    expect(sortedProduct.length).toBeGreaterThan(0);
+    expect(within(firstCard).getByText('Short shorts with straps')).not.toBeNull();
   });
 
   test('applies promo code and changes cart total', async () => {
