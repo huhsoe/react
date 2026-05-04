@@ -28,7 +28,7 @@ describe('FASHIONEE integration tests', () => {
     cleanup();
   });
 
-  test('updates product list when user types in search', async () => {
+  test('filters product cards when user types in search', async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ShopPage />);
@@ -38,7 +38,13 @@ describe('FASHIONEE integration tests', () => {
     await user.type(searchInput, 'shoulder');
 
     await waitFor(() => {
-      expect(screen.getByText('Shoulder bag')).not.toBeNull();
+      const productCards = screen.getAllByTestId('product-card');
+
+      expect(productCards).toHaveLength(2);
+
+      productCards.forEach((card) => {
+        expect(card.textContent.toLowerCase()).toContain('shoulder');
+      });
     });
   });
 
@@ -46,6 +52,12 @@ describe('FASHIONEE integration tests', () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ShopPage />);
+
+    const productCardsBeforeSort = screen.getAllByTestId('product-card');
+
+    expect(
+      within(productCardsBeforeSort[0]).getByText('Textured turtleneck with zip')
+    ).not.toBeNull();
 
     const sortSelect = screen.getAllByRole('combobox')[0];
 
@@ -55,10 +67,11 @@ describe('FASHIONEE integration tests', () => {
       expect(sortSelect.value).toBe('price');
     });
 
-    const productCards = screen.getAllByTestId('product-card');
-    const firstCard = productCards[0];
+    const productCardsAfterSort = screen.getAllByTestId('product-card');
 
-    expect(within(firstCard).getByText('Short shorts with straps')).not.toBeNull();
+    expect(
+      within(productCardsAfterSort[0]).getByText('Short shorts with straps')
+    ).not.toBeNull();
   });
 
   test('applies promo code and changes cart total', async () => {
